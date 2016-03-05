@@ -1,35 +1,19 @@
 {
-  "name": "OpenShift-Sample-App",
+  "name": "sensor-api",
   "version": "1.0.0",
-  "description": "OpenShift Sample Application",
+  "description": "All APIs you need to interact with sensors in building",
+  "main": "index.js",
   "keywords": [
-    "OpenShift",
-    "Node.js",
-    "application",
-    "openshift"
+    "swagger"
   ],
-  "author": {
-    "name": "OpenShift",
-    "email": "ramr@example.org",
-    "url": "http://www.openshift.com/"
-  },
-  "homepage": "http://www.openshift.com/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/openshift/origin-server"
-  },
-
-  "engines": {
-    "node": ">= 0.6.0",
-    "npm": ">= 1.0.0"
-  },
-
-  "dependencies": {
-    "express": "~3.4.4"
-  },
-  "devDependencies": {},
-  "bundleDependencies": [],
-
+  "license": "MIT",
   "private": true,
+  "dependencies": {
+    "connect": "^3.4.1",
+    "js-yaml": "^3.5.3",
+    "mongoose": "^4.4.6",
+    "node-uuid": "^1.4.7",
+    "swagger-tools": "^0.9.16"
+  },
   "main": "server.js"
 }
