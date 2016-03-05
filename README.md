@@ -18,3 +18,8 @@ MongoDB 2.4 database added.  Please make note of these credentials:
    Database Name: sensorapp
 
 Connection URL: mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/
+
+Please make note of these MongoDB credentials:
+  RockMongo User: admin
+  RockMongo Password: gebyU5XjGMV8
+URL: https://sensorapp-sbhal.rhcloud.com/rockmongo/

@@ -6,22 +6,21 @@ var http = require('http');
 var swaggerTools = require('swagger-tools');
 var jsyaml = require('js-yaml');
 var fs = require('fs');
-
-var serverPort = process.env.OPENSHIFT_NODEJS_PORT || 8080;
-var hostname = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
-
 var mongoose = require('mongoose');
-var connectionString = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost:27017/sensorDB';
-mongoose.connect(connectionString);
-//mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME);
-/*
-var db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log("DB Connected");
-});
-*/
+var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+var serverPort = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+
+var db_name = 'sensorDB';
+//provide a sensible default for local development
+var mongodb_connection_string = 'mongodb://127.0.0.1:27017/' + db_name;
+//take advantage of openshift env vars when available:
+if(process.env.OPENSHIFT_MONGODB_DB_URL){
+  mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + db_name;
+}
+
+var db = mongoose.connect(mongodb_connection_string);
+
 app.use(express.static(__dirname + '/public'));
 
 // swaggerRouter configuration
@@ -50,7 +49,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function(middleware) {
   app.use(middleware.swaggerUi());
 
   // Start the server
-  http.createServer(app).listen(serverPort, hostname, function() {
+  http.createServer(app).listen(serverPort, ipaddress, function() {
     console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
     console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
   });
